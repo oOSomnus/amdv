@@ -1,0 +1,27 @@
+{
+  "name": "amdv",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/build.mjs",
+    "build:web": "tsc && vite build",
+    "build:app": "node scripts/build.mjs",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "install:app": "node scripts/install.mjs",
+    "uninstall:app": "node scripts/uninstall.mjs"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-opener": "^2",
+    "marked": "^18.0.2"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2",
+    "@types/marked": "^6.0.0",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.3"
+  }
+}

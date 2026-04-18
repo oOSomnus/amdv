@@ -68,6 +68,17 @@ amdv ./plan.md
 This is useful when an agent has just written a plan in Markdown and wants to
 open a fast local preview for the user through the CLI.
 
+### Interactive Review Mode
+
+```bash
+amdv -i <file.md>
+amdv --interactive <file.md>
+```
+
+In interactive mode, an action bar appears with **Accept** and **Reject** buttons
+plus an optional note field. This enables human-in-the-loop review of generated
+plans before the agent proceeds.
+
 ## Tech
 
 - Tauri 2 (Rust backend)

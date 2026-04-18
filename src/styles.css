@@ -28,3 +28,74 @@ body {
 #content:empty {
   display: none;
 }
+
+#content {
+  padding-bottom: 100px;
+}
+
+#action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: #f6f8fa;
+  border-top: 1px solid #d0d7de;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+}
+
+#note-input {
+  flex: 1;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+#note-input:focus {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+}
+
+#buttons {
+  display: flex;
+  gap: 8px;
+}
+
+#btn-accept {
+  height: 36px;
+  padding: 0 16px;
+  background: #1a7f37;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+#btn-accept:hover {
+  background: #16692e;
+}
+
+#btn-reject {
+  height: 36px;
+  padding: 0 16px;
+  background: transparent;
+  color: #57606a;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#btn-reject:hover {
+  background: #f6f8fa;
+  border-color: #cf222e;
+  color: #cf222e;
+}

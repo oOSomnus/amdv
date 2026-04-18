@@ -81,7 +81,6 @@ async function init() {
   await loadMarkdown();
 }
 init();
-setInterval(loadMarkdown, 1500);
 
 // --- TDD Tests ---
 

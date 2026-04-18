@@ -49,21 +49,21 @@ describe('theme', () => {
   });
 
   describe('applyTheme', () => {
-    it('sets data-theme attribute on html element', async () => {
-      await applyTheme('github-dark');
+    it('sets data-theme attribute on html element', () => {
+      applyTheme('github-dark');
 
       expect(document.documentElement.getAttribute('data-theme')).toBe('github-dark');
     });
 
-    it('overwrites previous theme when applying new one', async () => {
-      await applyTheme('github-light');
-      await applyTheme('dracula');
+    it('overwrites previous theme when applying new one', () => {
+      applyTheme('github-light');
+      applyTheme('dracula');
 
       expect(document.documentElement.getAttribute('data-theme')).toBe('dracula');
     });
 
-    it('defaults to github-light for invalid theme', async () => {
-      await applyTheme('invalid-theme');
+    it('defaults to github-light for invalid theme', () => {
+      applyTheme('invalid-theme');
 
       expect(document.documentElement.getAttribute('data-theme')).toBe('github-light');
     });

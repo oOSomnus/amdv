@@ -13,7 +13,7 @@ export async function getTheme(): Promise<string> {
   }
 }
 
-export async function applyTheme(themeName: string) {
+export function applyTheme(themeName: string) {
   if (!AVAILABLE_THEMES.includes(themeName)) {
     themeName = 'github-light';
   }

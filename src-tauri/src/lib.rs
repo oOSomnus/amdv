@@ -12,7 +12,11 @@ Usage: amdv [options] <file.md>
 Options:
   -i, --interactive    Interactive review mode (Accept/Reject)
   -h, --help           Show this help message
+  -st, --set-theme     Set theme (github-light, github-dark, dracula)
+  --list-themes        List available themes
 "#;
+
+const VALID_THEMES: &[&str] = &["github-light", "github-dark", "dracula"];
 
 const CONFIG_DIR: &str = ".config/amdv";
 const CONFIG_FILE: &str = "config.json";
@@ -46,6 +50,9 @@ fn get_theme() -> Result<String, String> {
 
 #[tauri::command]
 fn set_theme(theme: String) -> Result<bool, String> {
+    if !VALID_THEMES.contains(&theme.as_str()) {
+        return Err(format!("Invalid theme '{}'. Valid themes: {}", theme, VALID_THEMES.join(", ")));
+    }
     ensure_config_dir()?;
     if let Some(config_path) = get_config_path() {
         let json = serde_json::json!({ "theme": theme });

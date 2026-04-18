@@ -14,6 +14,62 @@ Options:
   -h, --help           Show this help message
 "#;
 
+const CONFIG_DIR: &str = ".config/amdv";
+const CONFIG_FILE: &str = "config.json";
+
+fn get_config_path() -> Option<std::path::PathBuf> {
+    dirs::home_dir().map(|h| h.join(CONFIG_DIR).join(CONFIG_FILE))
+}
+
+fn ensure_config_dir() -> Result<(), String> {
+    if let Some(config_path) = get_config_path() {
+        if let Some(parent) = config_path.parent() {
+            std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+        }
+    }
+    Ok(())
+}
+
+#[tauri::command]
+fn get_theme() -> Result<String, String> {
+    if let Some(config_path) = get_config_path() {
+        if config_path.exists() {
+            let content = std::fs::read_to_string(&config_path).map_err(|e| e.to_string())?;
+            let json: serde_json::Value = serde_json::from_str(&content).map_err(|e| e.to_string())?;
+            if let Some(theme) = json.get("theme").and_then(|v| v.as_str()) {
+                return Ok(theme.to_string());
+            }
+        }
+    }
+    Ok("github-light".to_string())
+}
+
+#[tauri::command]
+fn set_theme(theme: String) -> Result<bool, String> {
+    ensure_config_dir()?;
+    if let Some(config_path) = get_config_path() {
+        let json = serde_json::json!({ "theme": theme });
+        std::fs::write(&config_path, serde_json::to_string_pretty(&json).unwrap())
+            .map_err(|e| e.to_string())?;
+        return Ok(true);
+    }
+    Err("Could not determine config path".to_string())
+}
+
+fn get_set_theme_arg(args: &[String]) -> Option<String> {
+    let mut iter = args.iter().peekable();
+    while let Some(arg) = iter.next() {
+        if arg == "--set-theme" || arg == "-st" {
+            return iter.next().cloned();
+        }
+    }
+    None
+}
+
+fn is_list_themes(args: &[String]) -> bool {
+    args.iter().any(|a| a == "--list-themes")
+}
+
 fn is_interactive_mode(args: &[String]) -> bool {
     args.iter().any(|a| a == "-i" || a == "--interactive")
 }
@@ -58,6 +114,27 @@ pub fn run() {
     let args: Vec<String> = std::env::args().collect();
     handle_help(&args);
 
+    if is_list_themes(&args) {
+        println!("Available themes:");
+        println!("  github-light  - GitHub Light");
+        println!("  github-dark   - GitHub Dark");
+        println!("  dracula       - Dracula");
+        std::process::exit(0);
+    }
+
+    if let Some(theme) = get_set_theme_arg(&args) {
+        match set_theme(theme.clone()) {
+            Ok(_) => {
+                println!("Theme set to: {}", theme);
+                std::process::exit(0);
+            }
+            Err(e) => {
+                eprintln!("Failed to set theme: {}", e);
+                std::process::exit(1);
+            }
+        }
+    }
+
     let interactive = is_interactive_mode(&args);
     let path = args.iter()
         .skip(1)
@@ -70,7 +147,7 @@ pub fn run() {
             .plugin(tauri_plugin_opener::init())
             .plugin(tauri_plugin_fs::init())
             .plugin(tauri_plugin_dialog::init())
-            .invoke_handler(tauri::generate_handler![read_markdown_file, submit_decision])
+            .invoke_handler(tauri::generate_handler![read_markdown_file, submit_decision, get_theme, set_theme])
             .setup(move |app| {
                 let window = app.get_webview_window("main").expect("main window should exist");
                 if let Some(ref file_path) = path {
@@ -108,7 +185,7 @@ pub fn run() {
             .plugin(tauri_plugin_opener::init())
             .plugin(tauri_plugin_fs::init())
             .plugin(tauri_plugin_dialog::init())
-            .invoke_handler(tauri::generate_handler![read_markdown_file, submit_decision])
+            .invoke_handler(tauri::generate_handler![read_markdown_file, submit_decision, get_theme, set_theme])
             .setup(move |app| {
                 let window = app.get_webview_window("main").expect("main window should exist");
                 if let Some(ref file_path) = path {

@@ -1,7 +1,7 @@
 use serde_json::to_string;
 use std::sync::mpsc::{channel, Sender};
 use std::sync::Mutex;
-use tauri::Manager;
+use tauri::{Emitter, Manager, WindowEvent};
 
 static DECISION_SENDER: Mutex<Option<Sender<(bool, String)>>> = Mutex::new(None);
 
@@ -32,6 +32,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_fs::init())
+        .plugin(tauri_plugin_dialog::init())
         .invoke_handler(tauri::generate_handler![read_markdown_file, submit_decision])
         .setup(|app| {
             let args: Vec<String> = std::env::args().collect();
@@ -42,9 +43,10 @@ pub fn run() {
                 .find(|a| !a.starts_with('-'))
                 .cloned();
 
+            let window = app.get_webview_window("main")
+                .expect("main window should exist");
+
             if let Some(file_path) = path {
-                let window = app.get_webview_window("main")
-                    .expect("main window should exist");
                 let json_path = to_string(&file_path).map_err(|e| e.to_string())?;
                 window.eval(&format!("window.__MD_FILE__ = {};", json_path))
                     .map_err(|e: tauri::Error| e.to_string())?;
@@ -67,6 +69,14 @@ pub fn run() {
                     });
                     println!("{}", result);
                     std::process::exit(0);
+                });
+
+                let window_clone = window.clone();
+                window.on_window_event(move |event| {
+                    if let WindowEvent::CloseRequested { api, .. } = event {
+                        api.prevent_close();
+                        window_clone.emit("request-close-confirm", ()).ok();
+                    }
                 });
             }
 

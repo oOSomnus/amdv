@@ -1,5 +1,7 @@
 import { marked } from 'marked';
 import { invoke } from '@tauri-apps/api/core';
+import { listen } from '@tauri-apps/api/event';
+import { confirm } from '@tauri-apps/plugin-dialog';
 
 function showActionBar() {
   if (document.getElementById('action-bar')) return; // Already exists
@@ -48,6 +50,7 @@ async function loadMarkdown() {
     if (isInteractive) {
       showActionBar();
       bindButtonEvents();
+      setupCloseHandler();
     }
   } catch (e) {
     content.textContent = `Error: ${e}`;
@@ -58,11 +61,15 @@ async function loadMarkdown() {
 // Auto-reload every 1.5 seconds for agent workflow
 setInterval(loadMarkdown, 1500);
 
-// Show confirm dialog on window close (interactive mode only)
-if ((window as any).__INTERACTIVE__) {
-  window.addEventListener('beforeunload', (e) => {
-    if (!confirm('确定要退出吗？')) {
-      e.preventDefault();
+// Handle close confirmation from Rust (Tauri intercepts native close)
+async function setupCloseHandler() {
+  if ((window as any).__CLOSE_CONFIRM_HANDLER__) return;
+  (window as any).__CLOSE_CONFIRM_HANDLER__ = true;
+
+  await listen('request-close-confirm', async () => {
+    const confirmed = await confirm('确定要退出吗？');
+    if (confirmed) {
+      await invoke('submit_decision', { accepted: false, note: '' });
     }
   });
 }

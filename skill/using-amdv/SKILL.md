@@ -10,14 +10,21 @@ Markdown viewer desktop app built with Tauri 2.x. **Use proactively when agent f
 ## Usage
 
 ```bash
-amdv <file.md>           # Basic preview
-amdv -i <file.md>        # Interactive review mode
-amdv --interactive <file.md>
+amdv <file.md>           # Basic preview (no result returned)
+amdv -i <file.md>        # Interactive review mode (BLOCKS until user decides)
 ```
 
-**When to use `-i`:** Agent generated a plan/decision and needs user to Accept/Reject before proceeding. Interactive mode shows Accept/Reject buttons with optional note field.
+**When to use `-i`:** Any time agent generates Markdown content that needs user review before proceeding. This includes but is not limited to:
+- Plans and design documents
+- Implementation proposals
+- Decision documents
+- Any .md file agent creates that requires user validation
 
 **When to skip `-i`:** User just wants to read the file without making a decision.
+
+**CRITICAL - Blocking execution:** `amdv -i` MUST be called synchronously. The command blocks until user clicks Accept/Reject. Do NOT use background execution (`&`). Only after receiving the JSON result via stdout can the agent proceed.
+
+**Result handling:** Parse stdout JSON `{"accepted": true/false, "note": "..."}` to determine user's choice and branch accordingly.
 
 **If amdv not installed:** Provide `pnpm install:app` to build and install `~/.local/bin/amdv`.
 

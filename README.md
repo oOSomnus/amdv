@@ -1,6 +1,10 @@
 # amdv
 
-Markdown viewer built with Tauri + vanilla TypeScript.
+A Markdown viewer built with Tauri + vanilla TypeScript.
+
+Its primary use case is helping an agent quickly preview a Markdown plan for the
+user after the agent finishes writing the plan. The agent can call the `amdv`
+CLI with a generated `.md` file and immediately show the rendered result.
 
 ## Setup
 
@@ -54,6 +58,15 @@ pnpm uninstall:app
 ```bash
 amdv <file.md>
 ```
+
+Example:
+
+```bash
+amdv ./plan.md
+```
+
+This is useful when an agent has just written a plan in Markdown and wants to
+open a fast local preview for the user through the CLI.
 
 ## Tech
 

@@ -2,6 +2,7 @@ import { marked } from 'marked';
 import { invoke } from '@tauri-apps/api/core';
 import { listen } from '@tauri-apps/api/event';
 import { confirm } from '@tauri-apps/plugin-dialog';
+import { getTheme, applyTheme } from './theme';
 
 function showActionBar() {
   if (document.getElementById('action-bar')) return; // Already exists
@@ -74,7 +75,13 @@ async function setupCloseHandler() {
   });
 }
 
-loadMarkdown();
+async function init() {
+  const theme = await getTheme();
+  applyTheme(theme);
+  await loadMarkdown();
+}
+init();
+setInterval(loadMarkdown, 1500);
 
 // --- TDD Tests ---
 

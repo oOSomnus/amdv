@@ -14,8 +14,7 @@ const mockedInvoke = invoke as ReturnType<typeof vi.fn>;
 describe('theme', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    // Clean up any existing theme styles
-    document.querySelectorAll('[data-theme-css]').forEach(el => el.remove());
+    document.documentElement.removeAttribute('data-theme');
   });
 
   describe('AVAILABLE_THEMES', () => {
@@ -50,30 +49,23 @@ describe('theme', () => {
   });
 
   describe('applyTheme', () => {
-    it('creates style element with theme CSS', async () => {
+    it('sets data-theme attribute on html element', async () => {
       await applyTheme('github-dark');
 
-      const styleEl = document.querySelector('[data-theme-css]');
-      expect(styleEl).toBeTruthy();
-      expect(styleEl?.textContent).toContain('#0d1117'); // github-dark background
+      expect(document.documentElement.getAttribute('data-theme')).toBe('github-dark');
     });
 
-    it('removes existing theme styles before adding new', async () => {
+    it('overwrites previous theme when applying new one', async () => {
       await applyTheme('github-light');
-      const firstStyle = document.querySelector('[data-theme-css]');
-
       await applyTheme('dracula');
-      const secondStyle = document.querySelectorAll('[data-theme-css]');
 
-      expect(secondStyle).toHaveLength(1);
-      expect(secondStyle[0].textContent).toContain('#282a36'); // dracula background
+      expect(document.documentElement.getAttribute('data-theme')).toBe('dracula');
     });
 
     it('defaults to github-light for invalid theme', async () => {
       await applyTheme('invalid-theme');
 
-      const styleEl = document.querySelector('[data-theme-css]');
-      expect(styleEl?.textContent).toContain('#ffffff'); // github-light background
+      expect(document.documentElement.getAttribute('data-theme')).toBe('github-light');
     });
   });
 });

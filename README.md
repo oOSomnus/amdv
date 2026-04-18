@@ -79,6 +79,19 @@ In interactive mode, an action bar appears with **Accept** and **Reject** button
 plus an optional note field. This enables human-in-the-loop review of generated
 plans before the agent proceeds.
 
+## Skills
+
+This project includes Claude Code skills for the agent workflow:
+
+```bash
+# Install skills (from project root)
+claude skill add ./skill/using-amdv
+```
+
+Available skills:
+
+- `using-amdv` — Use when previewing generated Markdown plans for human review
+
 ## Tech
 
 - Tauri 2 (Rust backend)

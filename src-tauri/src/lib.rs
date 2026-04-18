@@ -5,8 +5,24 @@ use tauri::{Emitter, Manager, WindowEvent};
 
 static DECISION_SENDER: Mutex<Option<Sender<(bool, String)>>> = Mutex::new(None);
 
+const HELP_TEXT: &str = r#"amdv - Markdown Viewer
+
+Usage: amdv [options] <file.md>
+
+Options:
+  -i, --interactive    Interactive review mode (Accept/Reject)
+  -h, --help           Show this help message
+"#;
+
 fn is_interactive_mode(args: &[String]) -> bool {
     args.iter().any(|a| a == "-i" || a == "--interactive")
+}
+
+fn handle_help(args: &[String]) {
+    if args.iter().any(|a| a == "-h" || a == "--help") {
+        print!("{}", HELP_TEXT);
+        std::process::exit(0);
+    }
 }
 
 // Note: fs:allow-read-text-file permission is intentionally broad to support
@@ -36,6 +52,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![read_markdown_file, submit_decision])
         .setup(|app| {
             let args: Vec<String> = std::env::args().collect();
+            handle_help(&args);
+
             let interactive = is_interactive_mode(&args);
 
             let path = args.iter()

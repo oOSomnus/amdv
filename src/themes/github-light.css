@@ -1,36 +1,48 @@
+/* GitHub Light Theme */
+
 [data-theme="github-light"] .markdown-body {
   color: #24292f;
   background-color: #ffffff;
 }
-[data-theme="github-light"] .markdown-body h1, [data-theme="github-light"] .markdown-body h2, [data-theme="github-light"] .markdown-body h3, [data-theme="github-light"] .markdown-body h4 {
+
+[data-theme="github-light"] .markdown-body h1,
+[data-theme="github-light"] .markdown-body h2,
+[data-theme="github-light"] .markdown-body h3,
+[data-theme="github-light"] .markdown-body h4 {
   color: #1f2328;
-  border-bottom: 1px solid #d1d9e0;
+  border-bottom-color: #d1d9e0;
 }
+
 [data-theme="github-light"] .markdown-body code {
+  color: #24292f;
   background-color: #f6f8fa;
-  border: 1px solid #d1d9e0;
-  border-radius: 6px;
-  padding: 0.2em 0.4em;
+  border-color: #d1d9e0;
 }
+
 [data-theme="github-light"] .markdown-body pre {
   background-color: #f6f8fa;
-  border: 1px solid #d1d9e0;
-  border-radius: 6px;
+  border-color: #d1d9e0;
 }
+
+[data-theme="github-light"] .markdown-body pre code {
+  background-color: transparent;
+  border: none;
+}
+
 [data-theme="github-light"] .markdown-body blockquote {
   color: #636c76;
-  border-left: 0.25em solid #d1d9e0;
+  border-left-color: #d1d9e0;
 }
+
 [data-theme="github-light"] .markdown-body a {
   color: #0969da;
 }
-[data-theme="github-light"] .markdown-body table {
-  border-collapse: collapse;
+
+[data-theme="github-light"] .markdown-body th,
+[data-theme="github-light"] .markdown-body td {
+  border-color: #d1d9e0;
 }
-[data-theme="github-light"] .markdown-body th, [data-theme="github-light"] .markdown-body td {
-  border: 1px solid #d1d9e0;
-  padding: 8px 12px;
-}
+
 [data-theme="github-light"] .markdown-body tr:nth-child(even) {
   background-color: #f6f8fa;
 }

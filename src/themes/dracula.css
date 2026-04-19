@@ -1,36 +1,48 @@
+/* Dracula Theme */
+
 [data-theme="dracula"] .markdown-body {
   color: #f8f8f2;
   background-color: #282a36;
 }
-[data-theme="dracula"] .markdown-body h1, [data-theme="dracula"] .markdown-body h2, [data-theme="dracula"] .markdown-body h3, [data-theme="dracula"] .markdown-body h4 {
+
+[data-theme="dracula"] .markdown-body h1,
+[data-theme="dracula"] .markdown-body h2,
+[data-theme="dracula"] .markdown-body h3,
+[data-theme="dracula"] .markdown-body h4 {
   color: #f8f8f2;
-  border-bottom: 1px solid #44475a;
+  border-bottom-color: #44475a;
 }
+
 [data-theme="dracula"] .markdown-body code {
+  color: #f8f8f2;
   background-color: #44475a;
-  border: 1px solid #6272a4;
-  border-radius: 6px;
-  padding: 0.2em 0.4em;
+  border-color: #6272a4;
 }
+
 [data-theme="dracula"] .markdown-body pre {
   background-color: #44475a;
-  border: 1px solid #6272a4;
-  border-radius: 6px;
+  border-color: #6272a4;
 }
+
+[data-theme="dracula"] .markdown-body pre code {
+  background-color: transparent;
+  border: none;
+}
+
 [data-theme="dracula"] .markdown-body blockquote {
   color: #6272a4;
-  border-left: 0.25em solid #6272a4;
+  border-left-color: #6272a4;
 }
+
 [data-theme="dracula"] .markdown-body a {
   color: #bd93f9;
 }
-[data-theme="dracula"] .markdown-body table {
-  border-collapse: collapse;
+
+[data-theme="dracula"] .markdown-body th,
+[data-theme="dracula"] .markdown-body td {
+  border-color: #44475a;
 }
-[data-theme="dracula"] .markdown-body th, [data-theme="dracula"] .markdown-body td {
-  border: 1px solid #44475a;
-  padding: 8px 12px;
-}
+
 [data-theme="dracula"] .markdown-body tr:nth-child(even) {
   background-color: #44475a;
 }

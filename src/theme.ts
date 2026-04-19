@@ -1,4 +1,5 @@
 import { invoke } from '@tauri-apps/api/core';
+import './themes/markdown-base.css';
 import './themes/github-light.css';
 import './themes/github-dark.css';
 import './themes/dracula.css';

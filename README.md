@@ -112,4 +112,6 @@ Available skills:
 
 - `using-amdv` — Use when previewing generated Markdown plans for human review
 
-License: MIT
+## License
+
+MIT

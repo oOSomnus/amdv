@@ -63,14 +63,17 @@ fn set_theme(theme: String) -> Result<bool, String> {
     Err("Could not determine config path".to_string())
 }
 
-fn get_set_theme_arg(args: &[String]) -> Option<String> {
+fn get_set_theme_arg(args: &[String]) -> Result<Option<String>, String> {
     let mut iter = args.iter().peekable();
     while let Some(arg) = iter.next() {
         if arg == "--set-theme" || arg == "-st" {
-            return iter.next().cloned();
+            return match iter.next() {
+                Some(theme) if !theme.starts_with('-') => Ok(Some(theme.clone())),
+                _ => Err("Missing theme name after --set-theme".to_string()),
+            };
         }
     }
-    None
+    Ok(None)
 }
 
 fn is_list_themes(args: &[String]) -> bool {
@@ -133,16 +136,23 @@ pub fn run() {
         std::process::exit(0);
     }
 
-    if let Some(theme) = get_set_theme_arg(&args) {
-        match set_theme(theme.clone()) {
-            Ok(_) => {
-                println!("Theme set to: {}", theme);
-                std::process::exit(0);
+    match get_set_theme_arg(&args) {
+        Ok(Some(theme)) => {
+            match set_theme(theme.clone()) {
+                Ok(_) => {
+                    println!("Theme set to: {}", theme);
+                    std::process::exit(0);
+                }
+                Err(e) => {
+                    eprintln!("Failed to set theme: {}", e);
+                    std::process::exit(1);
+                }
             }
-            Err(e) => {
-                eprintln!("Failed to set theme: {}", e);
-                std::process::exit(1);
-            }
+        }
+        Ok(None) => {}
+        Err(e) => {
+            eprintln!("Failed to set theme: {}", e);
+            std::process::exit(1);
         }
     }
 

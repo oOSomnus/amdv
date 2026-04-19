@@ -21,7 +21,10 @@ export function flushPromises() {
  * Creates and returns the content container used by component and integration tests.
  */
 export function createContentElement() {
-  document.body.innerHTML = '<div id="content" class="markdown-body">Loading...</div>';
+  document.body.innerHTML = `
+    <div id="content" class="markdown-body">Loading...</div>
+    <div id="close-confirm-root"></div>
+  `;
   return document.getElementById('content') as HTMLElement;
 }
 

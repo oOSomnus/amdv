@@ -1,12 +1,13 @@
 import { marked } from 'marked';
 import { invoke } from '@tauri-apps/api/core';
 import { listen } from '@tauri-apps/api/event';
-import { confirm } from '@tauri-apps/plugin-dialog';
 import { createApp } from './app';
+import { createCloseConfirm } from './close-confirm';
 import { getRuntimeContext } from './runtime';
 import { applyTheme, getTheme } from './theme';
 
 const contentEl = document.getElementById('content');
+const closeConfirm = createCloseConfirm();
 
 if (!(contentEl instanceof HTMLElement)) {
   throw new Error('Missing #content element');
@@ -17,7 +18,7 @@ const app = createApp({
   runtime: getRuntimeContext(),
   dependencies: {
     applyTheme,
-    confirmClose: () => confirm('确定要退出吗？'),
+    confirmClose: () => closeConfirm.confirmClose(),
     getTheme,
     listenForCloseRequest: async (handler) =>
       listen('request-close-confirm', () => {

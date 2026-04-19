@@ -11,6 +11,11 @@ body {
   background: var(--app-bg-color, #fff);
 }
 
+button,
+input {
+  font: inherit;
+}
+
 #content {
   max-width: 800px;
   margin: 0 auto;
@@ -105,4 +110,72 @@ body {
   background: var(--app-surface-color, #f6f8fa);
   border-color: #cf222e;
   color: #cf222e;
+}
+
+#close-confirm-root {
+  position: relative;
+  z-index: 1000;
+}
+
+.close-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.18);
+}
+
+.close-confirm-dialog {
+  width: min(100%, 320px);
+  padding: 22px 20px 18px;
+  border: 1px solid var(--app-border-color, #d0d7de);
+  border-radius: 14px;
+  background: var(--app-bg-color, #fff);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.14);
+}
+
+.close-confirm-title {
+  margin: 0;
+  color: var(--app-text-color, #24292f);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.close-confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.close-confirm-button {
+  min-width: 84px;
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: 1px solid var(--app-border-color, #d0d7de);
+  cursor: pointer;
+}
+
+.close-confirm-button.secondary {
+  color: var(--app-muted-text-color, #57606a);
+  background: transparent;
+}
+
+.close-confirm-button.secondary:hover {
+  background: var(--app-surface-color, #f6f8fa);
+}
+
+.close-confirm-button.primary {
+  color: #fff;
+  border-color: #cf222e;
+  background: #cf222e;
+}
+
+.close-confirm-button.primary:hover {
+  background: #a40e26;
+  border-color: #a40e26;
 }

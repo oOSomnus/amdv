@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createApp } from '../../app';
+import { createCloseConfirm } from '../../close-confirm';
 import {
   createAppTestHarness,
   createContentElement,
@@ -130,5 +131,60 @@ describe('app integration', () => {
     expect(document.getElementById('action-bar')).toBeNull();
     expect(harness.dependencies.readMarkdownFile).toHaveBeenCalledTimes(1);
     expect(harness.dependencies.submitDecision).not.toHaveBeenCalled();
+  });
+
+  it('shows a minimal close confirm overlay and rejects on exit', async () => {
+    const contentEl = createContentElement();
+    const closeConfirm = createCloseConfirm();
+    const harness = createAppTestHarness({
+      confirmClose: () => closeConfirm.confirmClose(),
+    });
+    const app = createApp({
+      contentEl,
+      dependencies: harness.dependencies,
+      runtime: { filePath: 'plan.md', interactive: true, pollIntervalMs: 60_000 },
+    });
+
+    await app.init();
+
+    const noteInput = document.getElementById('note-input') as HTMLInputElement;
+    noteInput.value = 'maybe later';
+
+    const closeRequest = harness.emitCloseRequest();
+
+    expect(document.body.textContent).toContain('确定退出吗？');
+    expect(document.body.textContent).not.toContain('amdv');
+
+    (document.getElementById('close-confirm-exit') as HTMLButtonElement).click();
+    await closeRequest;
+    await flushPromises();
+
+    expect(harness.dependencies.submitDecision).toHaveBeenCalledWith(false, 'maybe later');
+
+    await app.destroy();
+  });
+
+  it('dismisses the close confirm overlay without submitting on cancel', async () => {
+    const contentEl = createContentElement();
+    const closeConfirm = createCloseConfirm();
+    const harness = createAppTestHarness({
+      confirmClose: () => closeConfirm.confirmClose(),
+    });
+    const app = createApp({
+      contentEl,
+      dependencies: harness.dependencies,
+      runtime: { filePath: 'plan.md', interactive: true, pollIntervalMs: 60_000 },
+    });
+
+    await app.init();
+
+    const closeRequest = harness.emitCloseRequest();
+    (document.getElementById('close-confirm-cancel') as HTMLButtonElement).click();
+    await closeRequest;
+    await flushPromises();
+
+    expect(harness.dependencies.submitDecision).not.toHaveBeenCalled();
+
+    await app.destroy();
   });
 });

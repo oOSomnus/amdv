@@ -6,6 +6,20 @@ Its primary use case is helping an agent quickly preview a Markdown plan for the
 user after the agent finishes writing the plan. The agent can call the `amdv`
 CLI with a generated `.md` file and immediately show the rendered result.
 
+## TL;DR
+
+```bash
+# 1. Install amdv CLI
+pnpm install && pnpm install:app
+
+# 2. Copy skill to Claude Code skills directory
+cp -r skill/using-amdv ~/.claude/skills/
+# Or other places if using different Harness
+
+# 3. In session, invoke the skill
+/using-amdv
+```
+
 ## Setup
 
 ```bash

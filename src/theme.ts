@@ -3,8 +3,10 @@ import './themes/markdown-base.css';
 import './themes/github-light.css';
 import './themes/github-dark.css';
 import './themes/dracula.css';
+import './themes/nord.css';
+import './themes/monokai.css';
 
-export const AVAILABLE_THEMES = ['github-light', 'github-dark', 'dracula'];
+export const AVAILABLE_THEMES = ['github-light', 'github-dark', 'dracula', 'nord', 'monokai'];
 
 export async function getTheme(): Promise<string> {
   try {

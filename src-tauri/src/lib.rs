@@ -12,11 +12,11 @@ Usage: amdv [options] <file.md>
 Options:
   -i, --interactive    Interactive review mode (Accept/Reject)
   -h, --help           Show this help message
-  -st, --set-theme     Set theme (github-light, github-dark, dracula)
+  -st, --set-theme     Set theme (github-light, github-dark, dracula, nord, monokai)
   --list-themes        List available themes
 "#;
 
-const VALID_THEMES: &[&str] = &["github-light", "github-dark", "dracula"];
+const VALID_THEMES: &[&str] = &["github-light", "github-dark", "dracula", "nord", "monokai"];
 
 const CONFIG_DIR: &str = ".config/amdv";
 const CONFIG_FILE: &str = "config.json";
@@ -126,6 +126,8 @@ pub fn run() {
         println!("  github-light  - GitHub Light");
         println!("  github-dark   - GitHub Dark");
         println!("  dracula       - Dracula");
+        println!("  nord          - Nord");
+        println!("  monokai       - Monokai");
         std::process::exit(0);
     }
 

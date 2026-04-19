@@ -92,6 +92,8 @@ Available themes:
 - `github-light` - GitHub Light (default)
 - `github-dark` - GitHub Dark
 - `dracula` - Dracula
+- `nord` - Nord
+- `monokai` - Monokai
 
 The theme preference is stored in `~/.config/amdv/config.json` and persists across sessions.
 

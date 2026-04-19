@@ -18,14 +18,16 @@ describe('theme', () => {
   });
 
   describe('AVAILABLE_THEMES', () => {
-    it('contains three themes', () => {
-      expect(AVAILABLE_THEMES).toHaveLength(3);
+    it('contains five themes', () => {
+      expect(AVAILABLE_THEMES).toHaveLength(5);
     });
 
-    it('includes github-light, github-dark, and dracula', () => {
+    it('includes all available themes', () => {
       expect(AVAILABLE_THEMES).toContain('github-light');
       expect(AVAILABLE_THEMES).toContain('github-dark');
       expect(AVAILABLE_THEMES).toContain('dracula');
+      expect(AVAILABLE_THEMES).toContain('nord');
+      expect(AVAILABLE_THEMES).toContain('monokai');
     });
   });
 

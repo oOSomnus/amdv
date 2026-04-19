@@ -1,5 +1,14 @@
 /* Red Light Theme - ITS Light inspired */
 
+[data-theme="red-light"] {
+  --app-bg-color: #e1e6ed;
+  --app-surface-color: #f1f5ff;
+  --app-input-bg-color: #ffffff;
+  --app-border-color: #c9ced9;
+  --app-text-color: #697580;
+  --app-muted-text-color: #577093;
+}
+
 [data-theme="red-light"] .markdown-body {
   color: #697580;
   background-color: #e1e6ed;

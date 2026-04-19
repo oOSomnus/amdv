@@ -1,5 +1,14 @@
 /* Red Dark Theme - ITS Dark inspired */
 
+[data-theme="red"] {
+  --app-bg-color: #070b11;
+  --app-surface-color: #0d1520;
+  --app-input-bg-color: #070b11;
+  --app-border-color: #1b262f;
+  --app-text-color: #475569;
+  --app-muted-text-color: #577093;
+}
+
 [data-theme="red"] .markdown-body {
   color: #475569;
   background-color: #070b11;

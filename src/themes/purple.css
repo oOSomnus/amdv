@@ -1,5 +1,14 @@
 /* Dracula Theme */
 
+[data-theme="purple"] {
+  --app-bg-color: #282a36;
+  --app-surface-color: #44475a;
+  --app-input-bg-color: #282a36;
+  --app-border-color: #6272a4;
+  --app-text-color: #f8f8f2;
+  --app-muted-text-color: #6272a4;
+}
+
 [data-theme="purple"] .markdown-body {
   color: #f8f8f2;
   background-color: #282a36;

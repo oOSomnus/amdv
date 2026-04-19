@@ -1,5 +1,14 @@
 /* Monokai Theme */
 
+[data-theme="green"] {
+  --app-bg-color: #272822;
+  --app-surface-color: #49483e;
+  --app-input-bg-color: #272822;
+  --app-border-color: #75715e;
+  --app-text-color: #f8f8f2;
+  --app-muted-text-color: #75715e;
+}
+
 [data-theme="green"] .markdown-body {
   color: #f8f8f2;
   background-color: #272822;

@@ -98,10 +98,10 @@ function renderOverlay({
   overlay.className = 'close-confirm-overlay';
   overlay.innerHTML = `
     <div class="close-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="close-confirm-title">
-      <p id="close-confirm-title" class="close-confirm-title">确定退出吗？</p>
+      <p id="close-confirm-title" class="close-confirm-title">Are you sure you want to exit?</p>
       <div class="close-confirm-actions">
-        <button id="${CLOSE_CONFIRM_CANCEL_ID}" type="button" class="close-confirm-button secondary">取消</button>
-        <button id="${CLOSE_CONFIRM_EXIT_ID}" type="button" class="close-confirm-button primary">退出</button>
+        <button id="${CLOSE_CONFIRM_CANCEL_ID}" type="button" class="close-confirm-button secondary">Cancel</button>
+        <button id="${CLOSE_CONFIRM_EXIT_ID}" type="button" class="close-confirm-button primary">Exit</button>
       </div>
     </div>
   `;

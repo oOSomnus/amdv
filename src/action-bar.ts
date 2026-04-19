@@ -3,7 +3,7 @@ const NOTE_INPUT_ID = 'note-input';
 const ACCEPT_BUTTON_ID = 'btn-accept';
 const REJECT_BUTTON_ID = 'btn-reject';
 
-export const NOTE_PLACEHOLDER = '备注（可选）...';
+export const NOTE_PLACEHOLDER = 'Notes (optional)...';
 
 interface ActionBarOptions {
   contentEl: HTMLElement;

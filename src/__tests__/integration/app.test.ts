@@ -152,7 +152,7 @@ describe('app integration', () => {
 
     const closeRequest = harness.emitCloseRequest();
 
-    expect(document.body.textContent).toContain('确定退出吗？');
+    expect(document.body.textContent).toContain('Are you sure you want to exit?');
     expect(document.body.textContent).not.toContain('amdv');
 
     (document.getElementById('close-confirm-exit') as HTMLButtonElement).click();

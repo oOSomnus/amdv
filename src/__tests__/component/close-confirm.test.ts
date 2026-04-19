@@ -10,9 +10,9 @@ describe('close confirm component', () => {
     const closeConfirm = createCloseConfirm();
     const decisionPromise = closeConfirm.confirmClose();
 
-    expect(document.body.textContent).toContain('确定退出吗？');
-    expect(document.body.textContent).toContain('取消');
-    expect(document.body.textContent).toContain('退出');
+    expect(document.body.textContent).toContain('Are you sure you want to exit?');
+    expect(document.body.textContent).toContain('Cancel');
+    expect(document.body.textContent).toContain('Exit');
     expect(document.body.textContent).not.toContain('amdv');
 
     (document.getElementById('close-confirm-exit') as HTMLButtonElement).click();

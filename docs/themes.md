@@ -7,9 +7,13 @@ amdv supports customizable themes via CSS. Theme files are located in `src/theme
 ```
 src/themes/
   markdown-base.css    ← Shared structural styles (do not edit per-theme)
-  github-light.css    ← Theme: colors only
-  github-dark.css     ← Theme: colors only
-  dracula.css         ← Theme: colors only
+  default-light.css   ← Theme: colors only
+  default-dark.css    ← Theme: colors only
+  purple.css          ← Theme: colors only
+  blue.css            ← Theme: colors only
+  green.css           ← Theme: colors only
+  red.css             ← Theme: colors only (dark variant)
+  red-light.css       ← Theme: colors only (light variant)
 ```
 
 ## Adding a New Theme

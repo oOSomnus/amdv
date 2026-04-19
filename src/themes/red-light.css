@@ -1,0 +1,48 @@
+/* Red Light Theme - ITS Light inspired */
+
+[data-theme="red-light"] .markdown-body {
+  color: #697580;
+  background-color: #e1e6ed;
+}
+
+[data-theme="red-light"] .markdown-body h1,
+[data-theme="red-light"] .markdown-body h2,
+[data-theme="red-light"] .markdown-body h3,
+[data-theme="red-light"] .markdown-body h4 {
+  color: #aa3333;
+  border-bottom-color: #c9ced9;
+}
+
+[data-theme="red-light"] .markdown-body code {
+  color: #697580;
+  background-color: #f1f5ff;
+  border-color: #c9ced9;
+}
+
+[data-theme="red-light"] .markdown-body pre {
+  background-color: #f1f5ff;
+  border-color: #c9ced9;
+}
+
+[data-theme="red-light"] .markdown-body pre code {
+  background-color: transparent;
+  border: none;
+}
+
+[data-theme="red-light"] .markdown-body blockquote {
+  color: #577093;
+  border-left-color: #803232;
+}
+
+[data-theme="red-light"] .markdown-body a {
+  color: #803232;
+}
+
+[data-theme="red-light"] .markdown-body th,
+[data-theme="red-light"] .markdown-body td {
+  border-color: #c9ced9;
+}
+
+[data-theme="red-light"] .markdown-body tr:nth-child(even) {
+  background-color: #f1f5ff;
+}

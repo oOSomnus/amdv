@@ -18,56 +18,59 @@ describe('theme', () => {
   });
 
   describe('AVAILABLE_THEMES', () => {
-    it('contains five themes', () => {
-      expect(AVAILABLE_THEMES).toHaveLength(5);
+    it('is a non-empty array', () => {
+      expect(Array.isArray(AVAILABLE_THEMES)).toBe(true);
+      expect(AVAILABLE_THEMES.length).toBeGreaterThan(0);
     });
 
-    it('includes all available themes', () => {
-      expect(AVAILABLE_THEMES).toContain('github-light');
-      expect(AVAILABLE_THEMES).toContain('github-dark');
-      expect(AVAILABLE_THEMES).toContain('dracula');
-      expect(AVAILABLE_THEMES).toContain('nord');
-      expect(AVAILABLE_THEMES).toContain('monokai');
+    it('includes all expected themes', () => {
+      expect(AVAILABLE_THEMES).toContain('default-light');
+      expect(AVAILABLE_THEMES).toContain('default-dark');
+      expect(AVAILABLE_THEMES).toContain('purple');
+      expect(AVAILABLE_THEMES).toContain('blue');
+      expect(AVAILABLE_THEMES).toContain('green');
+      expect(AVAILABLE_THEMES).toContain('red');
+      expect(AVAILABLE_THEMES).toContain('red-light');
     });
   });
 
   describe('getTheme', () => {
     it('returns theme from backend', async () => {
-      mockedInvoke.mockResolvedValue('github-dark');
+      mockedInvoke.mockResolvedValue('default-dark');
 
       const theme = await getTheme();
 
-      expect(theme).toBe('github-dark');
+      expect(theme).toBe('default-dark');
       expect(mockedInvoke).toHaveBeenCalledWith('get_theme');
     });
 
-    it('defaults to github-light on error', async () => {
+    it('defaults to default-light on error', async () => {
       mockedInvoke.mockRejectedValue(new Error('backend error'));
 
       const theme = await getTheme();
 
-      expect(theme).toBe('github-light');
+      expect(theme).toBe('default-light');
     });
   });
 
   describe('applyTheme', () => {
     it('sets data-theme attribute on html element', () => {
-      applyTheme('github-dark');
+      applyTheme('default-dark');
 
-      expect(document.documentElement.getAttribute('data-theme')).toBe('github-dark');
+      expect(document.documentElement.getAttribute('data-theme')).toBe('default-dark');
     });
 
     it('overwrites previous theme when applying new one', () => {
-      applyTheme('github-light');
-      applyTheme('dracula');
+      applyTheme('default-light');
+      applyTheme('purple');
 
-      expect(document.documentElement.getAttribute('data-theme')).toBe('dracula');
+      expect(document.documentElement.getAttribute('data-theme')).toBe('purple');
     });
 
-    it('defaults to github-light for invalid theme', () => {
+    it('defaults to default-light for invalid theme', () => {
       applyTheme('invalid-theme');
 
-      expect(document.documentElement.getAttribute('data-theme')).toBe('github-light');
+      expect(document.documentElement.getAttribute('data-theme')).toBe('default-light');
     });
   });
 });

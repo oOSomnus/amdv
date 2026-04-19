@@ -1,0 +1,48 @@
+/* Red Dark Theme - ITS Dark inspired */
+
+[data-theme="red"] .markdown-body {
+  color: #475569;
+  background-color: #070b11;
+}
+
+[data-theme="red"] .markdown-body h1,
+[data-theme="red"] .markdown-body h2,
+[data-theme="red"] .markdown-body h3,
+[data-theme="red"] .markdown-body h4 {
+  color: #aa3333;
+  border-bottom-color: #571a1a;
+}
+
+[data-theme="red"] .markdown-body code {
+  color: #475569;
+  background-color: #0d1520;
+  border-color: #1b262f;
+}
+
+[data-theme="red"] .markdown-body pre {
+  background-color: #0d1520;
+  border-color: #1b262f;
+}
+
+[data-theme="red"] .markdown-body pre code {
+  background-color: transparent;
+  border: none;
+}
+
+[data-theme="red"] .markdown-body blockquote {
+  color: #577093;
+  border-left-color: #803232;
+}
+
+[data-theme="red"] .markdown-body a {
+  color: #803232;
+}
+
+[data-theme="red"] .markdown-body th,
+[data-theme="red"] .markdown-body td {
+  border-color: #1b262f;
+}
+
+[data-theme="red"] .markdown-body tr:nth-child(even) {
+  background-color: #0d1520;
+}

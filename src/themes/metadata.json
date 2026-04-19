@@ -1,0 +1,12 @@
+{
+  "defaultTheme": "default-light",
+  "themes": [
+    { "id": "default-light", "label": "Default Light" },
+    { "id": "default-dark", "label": "Default Dark" },
+    { "id": "purple", "label": "Purple" },
+    { "id": "blue", "label": "Blue" },
+    { "id": "green", "label": "Green" },
+    { "id": "red", "label": "Red" },
+    { "id": "red-light", "label": "Red Light" }
+  ]
+}

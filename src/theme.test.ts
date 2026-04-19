@@ -1,13 +1,19 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock Tauri invoke before importing main
 vi.mock('@tauri-apps/api/core', () => ({
   invoke: vi.fn(),
 }));
 
-// Import after mock
 import { invoke } from '@tauri-apps/api/core';
-import { getTheme, applyTheme, AVAILABLE_THEMES } from './theme';
+import {
+  applyTheme,
+  AVAILABLE_THEMES,
+  DEFAULT_THEME,
+  getTheme,
+  isValidTheme,
+  normalizeTheme,
+  THEME_OPTIONS,
+} from './theme';
 
 const mockedInvoke = invoke as ReturnType<typeof vi.fn>;
 
@@ -17,60 +23,42 @@ describe('theme', () => {
     document.documentElement.removeAttribute('data-theme');
   });
 
-  describe('AVAILABLE_THEMES', () => {
-    it('is a non-empty array', () => {
-      expect(Array.isArray(AVAILABLE_THEMES)).toBe(true);
-      expect(AVAILABLE_THEMES.length).toBeGreaterThan(0);
-    });
-
-    it('includes all expected themes', () => {
-      expect(AVAILABLE_THEMES).toContain('default-light');
-      expect(AVAILABLE_THEMES).toContain('default-dark');
-      expect(AVAILABLE_THEMES).toContain('purple');
-      expect(AVAILABLE_THEMES).toContain('blue');
-      expect(AVAILABLE_THEMES).toContain('green');
-      expect(AVAILABLE_THEMES).toContain('red');
-      expect(AVAILABLE_THEMES).toContain('red-light');
-    });
+  it('exports theme options backed by shared metadata', () => {
+    expect(THEME_OPTIONS.length).toBeGreaterThan(0);
+    expect(DEFAULT_THEME).toBe('default-light');
+    expect(AVAILABLE_THEMES).toEqual(THEME_OPTIONS.map((theme) => theme.id));
   });
 
-  describe('getTheme', () => {
-    it('returns theme from backend', async () => {
-      mockedInvoke.mockResolvedValue('default-dark');
-
-      const theme = await getTheme();
-
-      expect(theme).toBe('default-dark');
-      expect(mockedInvoke).toHaveBeenCalledWith('get_theme');
-    });
-
-    it('defaults to default-light on error', async () => {
-      mockedInvoke.mockRejectedValue(new Error('backend error'));
-
-      const theme = await getTheme();
-
-      expect(theme).toBe('default-light');
-    });
+  it('validates and normalizes theme names', () => {
+    expect(isValidTheme('default-dark')).toBe(true);
+    expect(isValidTheme('unknown-theme')).toBe(false);
+    expect(normalizeTheme('unknown-theme')).toBe(DEFAULT_THEME);
   });
 
-  describe('applyTheme', () => {
-    it('sets data-theme attribute on html element', () => {
-      applyTheme('default-dark');
+  it('returns theme from backend when valid', async () => {
+    mockedInvoke.mockResolvedValue('default-dark');
 
-      expect(document.documentElement.getAttribute('data-theme')).toBe('default-dark');
-    });
+    await expect(getTheme()).resolves.toBe('default-dark');
+    expect(mockedInvoke).toHaveBeenCalledWith('get_theme');
+  });
 
-    it('overwrites previous theme when applying new one', () => {
-      applyTheme('default-light');
-      applyTheme('purple');
+  it('falls back to default theme for invalid backend values', async () => {
+    mockedInvoke.mockResolvedValue('legacy-theme');
 
-      expect(document.documentElement.getAttribute('data-theme')).toBe('purple');
-    });
+    await expect(getTheme()).resolves.toBe(DEFAULT_THEME);
+  });
 
-    it('defaults to default-light for invalid theme', () => {
-      applyTheme('invalid-theme');
+  it('falls back to default theme on backend error', async () => {
+    mockedInvoke.mockRejectedValue(new Error('backend error'));
 
-      expect(document.documentElement.getAttribute('data-theme')).toBe('default-light');
-    });
+    await expect(getTheme()).resolves.toBe(DEFAULT_THEME);
+  });
+
+  it('applies normalized theme ids to the document root', () => {
+    applyTheme('default-dark');
+    expect(document.documentElement.getAttribute('data-theme')).toBe('default-dark');
+
+    applyTheme('invalid-theme');
+    expect(document.documentElement.getAttribute('data-theme')).toBe(DEFAULT_THEME);
   });
 });

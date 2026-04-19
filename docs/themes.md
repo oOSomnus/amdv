@@ -75,18 +75,24 @@ src/themes/
 
 ```typescript
 import './themes/markdown-base.css';
-import './themes/github-light.css';
-import './themes/github-dark.css';
-import './themes/dracula.css';
-import './themes/nord.css';  // ← add this line
-
-export const AVAILABLE_THEMES = ['github-light', 'github-dark', 'dracula', 'nord'];
+import './themes/default-light.css';
+import './themes/default-dark.css';
+import './themes/purple.css';
+import './themes/nord.css'; // ← add this line
 ```
 
-3. **Add the theme name** in `src-tauri/src/lib.rs`:
+3. **Register the theme metadata** in `src/themes/metadata.json`:
 
-```rust
-const VALID_THEMES: &[&str] = &["github-light", "github-dark", "dracula", "nord"];
+```json
+{
+  "defaultTheme": "default-light",
+  "themes": [
+    { "id": "default-light", "label": "Default Light" },
+    { "id": "default-dark", "label": "Default Dark" },
+    { "id": "purple", "label": "Purple" },
+    { "id": "nord", "label": "Nord" }
+  ]
+}
 ```
 
 4. **Test locally**:

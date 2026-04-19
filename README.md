@@ -103,11 +103,13 @@ amdv -st <name>           # Shorthand for --set-theme
 
 Available themes:
 
-- `github-light` - GitHub Light (default)
-- `github-dark` - GitHub Dark
-- `dracula` - Dracula
-- `nord` - Nord
-- `monokai` - Monokai
+- `default-light` - Default Light (default)
+- `default-dark` - Default Dark
+- `purple` - Purple
+- `blue` - Blue
+- `green` - Green
+- `red` - Red
+- `red-light` - Red Light
 
 The theme preference is stored in `~/.config/amdv/config.json` and persists across sessions.
 

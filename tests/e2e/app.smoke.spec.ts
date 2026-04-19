@@ -1,14 +1,14 @@
 import { expect, test } from '@playwright/test';
 
 test('renders markdown content from a file fixture', async ({ page }) => {
-  await page.goto('/tests/e2e/harness.html?file=/test-fixtures/smoke.md');
+  await page.goto('/tests/e2e/harness.html');
 
   await expect(page.locator('#content h1')).toHaveText('Smoke Test Plan');
   await expect(page.locator('#content')).toContainText('Layered test coverage');
 });
 
 test('shows interactive controls and records accept decisions', async ({ page }) => {
-  await page.goto('/tests/e2e/harness.html?file=/test-fixtures/smoke.md&interactive=1');
+  await page.goto('/tests/e2e/harness.html?interactive=1');
 
   await expect(page.locator('#action-bar')).toBeVisible();
   await page.locator('#note-input').fill('looks good');
@@ -22,7 +22,7 @@ test('shows interactive controls and records accept decisions', async ({ page })
 });
 
 test('hides interactive controls in non-interactive mode', async ({ page }) => {
-  await page.goto('/tests/e2e/harness.html?file=/test-fixtures/smoke.md');
+  await page.goto('/tests/e2e/harness.html');
 
   await expect(page.locator('#action-bar')).toHaveCount(0);
 });

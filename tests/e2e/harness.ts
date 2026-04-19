@@ -1,6 +1,7 @@
 import { marked } from 'marked';
 import { createApp } from '../../src/app';
 import { applyTheme, DEFAULT_THEME } from '../../src/theme';
+import smokeMarkdown from './fixtures/smoke.md?raw';
 
 declare global {
   interface Window {
@@ -15,7 +16,7 @@ if (!(contentEl instanceof HTMLElement)) {
 }
 
 const params = new URLSearchParams(window.location.search);
-const filePath = params.get('file') ?? undefined;
+const filePath = params.get('file') ?? 'smoke';
 const interactive = params.get('interactive') === '1';
 
 window.__HARNESS_DECISIONS__ = [];
@@ -34,12 +35,11 @@ const app = createApp({
     listenForCloseRequest: async () => () => {},
     parseMarkdown: (markdown) => marked.parse(markdown) as string,
     readMarkdownFile: async (path) => {
-      const response = await fetch(path);
-      if (!response.ok) {
-        throw new Error(`Failed to load markdown: ${response.status}`);
+      if (path === 'smoke') {
+        return smokeMarkdown;
       }
 
-      return response.text();
+      throw new Error(`Unknown markdown fixture: ${path}`);
     },
     submitDecision: async (accepted, note) => {
       window.__HARNESS_DECISIONS__?.push({ accepted, note });

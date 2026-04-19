@@ -95,6 +95,8 @@ Available themes:
 
 The theme preference is stored in `~/.config/amdv/config.json` and persists across sessions.
 
+See [docs/themes.md](docs/themes.md) for how to add a new theme.
+
 ## Skills
 
 This project includes Claude Code skills for the agent workflow:
@@ -108,9 +110,4 @@ Available skills:
 
 - `using-amdv` — Use when previewing generated Markdown plans for human review
 
-## Tech
-
-- Tauri 2 (Rust backend)
-- Vanilla TypeScript frontend
-- marked for Markdown parsing
-- GitHub Markdown CSS
+License: MIT

@@ -307,65 +307,120 @@ pub fn run() {
 mod tests {
     use super::*;
 
-    #[test]
-    fn get_set_theme_arg_reads_theme_value() {
-        let args = vec![
-            "amdv".to_string(),
-            "--set-theme".to_string(),
-            "red".to_string(),
-        ];
+    mod cli_parsing {
+        use super::*;
 
-        assert_eq!(get_set_theme_arg(&args).unwrap(), Some("red".to_string()));
+        #[test]
+        fn get_set_theme_arg_reads_theme_value() {
+            let args = vec![
+                "amdv".to_string(),
+                "--set-theme".to_string(),
+                "red".to_string(),
+            ];
+
+            assert_eq!(get_set_theme_arg(&args).unwrap(), Some("red".to_string()));
+        }
+
+        #[test]
+        fn get_set_theme_arg_requires_value() {
+            let args = vec!["amdv".to_string(), "--set-theme".to_string()];
+
+            assert!(get_set_theme_arg(&args).is_err());
+        }
+
+        #[test]
+        fn detects_help_list_and_interactive_flags() {
+            let help_args = vec!["amdv".to_string(), "--help".to_string()];
+            let list_args = vec!["amdv".to_string(), "--list-themes".to_string()];
+            let interactive_args = vec!["amdv".to_string(), "-i".to_string(), "plan.md".to_string()];
+
+            assert!(is_help(&help_args));
+            assert!(is_list_themes(&list_args));
+            assert!(is_interactive_mode(&interactive_args));
+        }
+
+        #[test]
+        fn parse_cli_options_extracts_interactive_mode_and_path() {
+            let args = vec![
+                "amdv".to_string(),
+                "--interactive".to_string(),
+                "plan.md".to_string(),
+            ];
+
+            assert_eq!(
+                parse_cli_options(&args),
+                CliOptions {
+                    file_path: Some("plan.md".to_string()),
+                    interactive: true,
+                }
+            );
+        }
+
+        #[test]
+        fn parse_cli_options_returns_none_when_no_file_path_exists() {
+            let args = vec!["amdv".to_string(), "--interactive".to_string()];
+
+            assert_eq!(
+                parse_cli_options(&args),
+                CliOptions {
+                    file_path: None,
+                    interactive: true,
+                }
+            );
+        }
     }
 
-    #[test]
-    fn get_set_theme_arg_requires_value() {
-        let args = vec!["amdv".to_string(), "--set-theme".to_string()];
+    mod theme_parsing {
+        use super::*;
 
-        assert!(get_set_theme_arg(&args).is_err());
+        #[test]
+        fn theme_validation_matches_shared_metadata() {
+            assert!(is_valid_theme("default-light"));
+            assert!(is_valid_theme("red-light"));
+            assert!(!is_valid_theme("github-light"));
+        }
+
+        #[test]
+        fn theme_from_config_content_returns_valid_theme() {
+            let config = r#"{ "theme": "purple" }"#;
+            assert_eq!(
+                theme_from_config_content(config),
+                Some("purple".to_string())
+            );
+        }
+
+        #[test]
+        fn theme_from_config_content_rejects_invalid_theme() {
+            let config = r#"{ "theme": "legacy-theme" }"#;
+            assert_eq!(theme_from_config_content(config), None);
+        }
+
+        #[test]
+        fn theme_from_config_content_rejects_missing_theme_and_invalid_json() {
+            let missing_theme = r#"{ "mode": "purple" }"#;
+            let invalid_json = r#"{ "theme": "#;
+
+            assert_eq!(theme_from_config_content(missing_theme), None);
+            assert_eq!(theme_from_config_content(invalid_json), None);
+        }
+
+        #[test]
+        fn default_theme_comes_from_shared_metadata() {
+            assert_eq!(default_theme_id(), "default-light");
+        }
     }
 
-    #[test]
-    fn parse_cli_options_extracts_interactive_mode_and_path() {
-        let args = vec![
-            "amdv".to_string(),
-            "--interactive".to_string(),
-            "plan.md".to_string(),
-        ];
+    mod text_output {
+        use super::*;
 
-        assert_eq!(
-            parse_cli_options(&args),
-            CliOptions {
-                file_path: Some("plan.md".to_string()),
-                interactive: true,
-            }
-        );
-    }
+        #[test]
+        fn available_themes_text_lists_header_and_known_themes() {
+            let output = available_themes_text().expect("theme catalog should load");
 
-    #[test]
-    fn theme_validation_matches_shared_metadata() {
-        assert!(is_valid_theme("default-light"));
-        assert!(is_valid_theme("red-light"));
-        assert!(!is_valid_theme("github-light"));
-    }
-
-    #[test]
-    fn theme_from_config_content_returns_valid_theme() {
-        let config = r#"{ "theme": "purple" }"#;
-        assert_eq!(
-            theme_from_config_content(config),
-            Some("purple".to_string())
-        );
-    }
-
-    #[test]
-    fn theme_from_config_content_rejects_invalid_theme() {
-        let config = r#"{ "theme": "legacy-theme" }"#;
-        assert_eq!(theme_from_config_content(config), None);
-    }
-
-    #[test]
-    fn default_theme_comes_from_shared_metadata() {
-        assert_eq!(default_theme_id(), "default-light");
+            assert!(output.starts_with("Available themes:"));
+            assert!(output.contains("default-light"));
+            assert!(output.contains("Default Light"));
+            assert!(output.contains("red-light"));
+        }
     }
 }

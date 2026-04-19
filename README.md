@@ -115,6 +115,25 @@ The theme preference is stored in `~/.config/amdv/config.json` and persists acro
 
 See [docs/themes.md](docs/themes.md) for how to add a new theme.
 
+## Testing
+
+```bash
+pnpm test
+pnpm test:unit
+pnpm test:component
+pnpm test:integration
+pnpm test:rust
+pnpm test:e2e
+```
+
+Testing is layered so each suite has a clear responsibility:
+
+- `unit`: pure logic and value normalization
+- `component`: focused DOM behavior for isolated UI helpers
+- `integration`: app orchestration with mocked dependencies
+- `rust`: CLI and backend logic in `src-tauri`
+- `e2e`: Playwright smoke tests through a browser-hosted harness that mirrors the Tauri runtime boundary
+
 ## Skills
 
 This project includes Claude Code skills for the agent workflow:

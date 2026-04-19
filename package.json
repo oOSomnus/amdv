@@ -11,6 +11,11 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "test": "vitest run",
+    "test:unit": "vitest run src/__tests__/unit",
+    "test:component": "vitest run src/__tests__/component",
+    "test:integration": "vitest run src/__tests__/integration",
+    "test:rust": "cargo test --manifest-path src-tauri/Cargo.toml",
+    "test:e2e": "playwright test",
     "install:app": "node scripts/install.mjs",
     "uninstall:app": "node scripts/uninstall.mjs"
   },
@@ -21,6 +26,7 @@
     "marked": "^18.0.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.54.2",
     "@tauri-apps/cli": "^2",
     "@types/marked": "^6.0.0",
     "jsdom": "^26.1.0",

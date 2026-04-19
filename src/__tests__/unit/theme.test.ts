@@ -13,11 +13,11 @@ import {
   isValidTheme,
   normalizeTheme,
   THEME_OPTIONS,
-} from './theme';
+} from '../../theme';
 
 const mockedInvoke = invoke as ReturnType<typeof vi.fn>;
 
-describe('theme', () => {
+describe('theme unit', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     document.documentElement.removeAttribute('data-theme');

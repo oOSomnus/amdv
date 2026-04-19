@@ -10,6 +10,8 @@ pnpm-lock.yaml
 
 # Build output
 dist/
+playwright-report/
+test-results/
 
 # IDE
 .idea/

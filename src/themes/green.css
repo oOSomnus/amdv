@@ -1,0 +1,48 @@
+/* Monokai Theme */
+
+[data-theme="green"] .markdown-body {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+
+[data-theme="green"] .markdown-body h1,
+[data-theme="green"] .markdown-body h2,
+[data-theme="green"] .markdown-body h3,
+[data-theme="green"] .markdown-body h4 {
+  color: #f8f8f2;
+  border-bottom-color: #49483e;
+}
+
+[data-theme="green"] .markdown-body code {
+  color: #f8f8f2;
+  background-color: #49483e;
+  border-color: #75715e;
+}
+
+[data-theme="green"] .markdown-body pre {
+  background-color: #49483e;
+  border-color: #75715e;
+}
+
+[data-theme="green"] .markdown-body pre code {
+  background-color: transparent;
+  border: none;
+}
+
+[data-theme="green"] .markdown-body blockquote {
+  color: #75715e;
+  border-left-color: #75715e;
+}
+
+[data-theme="green"] .markdown-body a {
+  color: #66d9ef;
+}
+
+[data-theme="green"] .markdown-body th,
+[data-theme="green"] .markdown-body td {
+  border-color: #49483e;
+}
+
+[data-theme="green"] .markdown-body tr:nth-child(even) {
+  background-color: #49483e;
+}

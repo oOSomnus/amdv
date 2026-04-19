@@ -1,0 +1,48 @@
+/* Dracula Theme */
+
+[data-theme="purple"] .markdown-body {
+  color: #f8f8f2;
+  background-color: #282a36;
+}
+
+[data-theme="purple"] .markdown-body h1,
+[data-theme="purple"] .markdown-body h2,
+[data-theme="purple"] .markdown-body h3,
+[data-theme="purple"] .markdown-body h4 {
+  color: #f8f8f2;
+  border-bottom-color: #44475a;
+}
+
+[data-theme="purple"] .markdown-body code {
+  color: #f8f8f2;
+  background-color: #44475a;
+  border-color: #6272a4;
+}
+
+[data-theme="purple"] .markdown-body pre {
+  background-color: #44475a;
+  border-color: #6272a4;
+}
+
+[data-theme="purple"] .markdown-body pre code {
+  background-color: transparent;
+  border: none;
+}
+
+[data-theme="purple"] .markdown-body blockquote {
+  color: #6272a4;
+  border-left-color: #6272a4;
+}
+
+[data-theme="purple"] .markdown-body a {
+  color: #bd93f9;
+}
+
+[data-theme="purple"] .markdown-body th,
+[data-theme="purple"] .markdown-body td {
+  border-color: #44475a;
+}
+
+[data-theme="purple"] .markdown-body tr:nth-child(even) {
+  background-color: #44475a;
+}

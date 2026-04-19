@@ -1,0 +1,48 @@
+/* GitHub Light Theme */
+
+[data-theme="default-light"] .markdown-body {
+  color: #24292f;
+  background-color: #ffffff;
+}
+
+[data-theme="default-light"] .markdown-body h1,
+[data-theme="default-light"] .markdown-body h2,
+[data-theme="default-light"] .markdown-body h3,
+[data-theme="default-light"] .markdown-body h4 {
+  color: #1f2328;
+  border-bottom-color: #d1d9e0;
+}
+
+[data-theme="default-light"] .markdown-body code {
+  color: #24292f;
+  background-color: #f6f8fa;
+  border-color: #d1d9e0;
+}
+
+[data-theme="default-light"] .markdown-body pre {
+  background-color: #f6f8fa;
+  border-color: #d1d9e0;
+}
+
+[data-theme="default-light"] .markdown-body pre code {
+  background-color: transparent;
+  border: none;
+}
+
+[data-theme="default-light"] .markdown-body blockquote {
+  color: #636c76;
+  border-left-color: #d1d9e0;
+}
+
+[data-theme="default-light"] .markdown-body a {
+  color: #0969da;
+}
+
+[data-theme="default-light"] .markdown-body th,
+[data-theme="default-light"] .markdown-body td {
+  border-color: #d1d9e0;
+}
+
+[data-theme="default-light"] .markdown-body tr:nth-child(even) {
+  background-color: #f6f8fa;
+}

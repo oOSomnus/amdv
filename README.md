@@ -79,6 +79,26 @@ In interactive mode, an action bar appears with **Accept** and **Reject** button
 plus an optional note field. This enables human-in-the-loop review of generated
 plans before the agent proceeds.
 
+### Themes
+
+```bash
+amdv --list-themes        # List available themes
+amdv --set-theme <name>   # Set default theme (persisted)
+amdv -st <name>           # Shorthand for --set-theme
+```
+
+Available themes:
+
+- `github-light` - GitHub Light (default)
+- `github-dark` - GitHub Dark
+- `dracula` - Dracula
+- `nord` - Nord
+- `monokai` - Monokai
+
+The theme preference is stored in `~/.config/amdv/config.json` and persists across sessions.
+
+See [docs/themes.md](docs/themes.md) for how to add a new theme.
+
 ## Skills
 
 This project includes Claude Code skills for the agent workflow:
@@ -92,9 +112,4 @@ Available skills:
 
 - `using-amdv` — Use when previewing generated Markdown plans for human review
 
-## Tech
-
-- Tauri 2 (Rust backend)
-- Vanilla TypeScript frontend
-- marked for Markdown parsing
-- GitHub Markdown CSS
+License: MIT

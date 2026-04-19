@@ -7,63 +7,63 @@ amdv supports customizable themes via CSS. Theme files are located in `src/theme
 ```
 src/themes/
   markdown-base.css    ← Shared structural styles (do not edit per-theme)
-  github-light.css     ← Theme: colors only
-  github-dark.css      ← Theme: colors only
-  dracula.css          ← Theme: colors only
+  github-light.css    ← Theme: colors only
+  github-dark.css     ← Theme: colors only
+  dracula.css         ← Theme: colors only
 ```
 
 ## Adding a New Theme
 
-1. **Create the theme CSS file** in `src/themes/` (e.g., `monokai.css`):
+1. **Create the theme CSS file** in `src/themes/` (e.g., `nord.css`):
 
 ```css
-/* Monokai Theme */
+/* Nord Theme */
 
-[data-theme="monokai"] .markdown-body {
-  color: #f8f8f2;
-  background-color: #272822;
+[data-theme="nord"] .markdown-body {
+  color: #eceff4;
+  background-color: #2e3440;
 }
 
-[data-theme="monokai"] .markdown-body h1,
-[data-theme="monokai"] .markdown-body h2,
-[data-theme="monokai"] .markdown-body h3,
-[data-theme="monokai"] .markdown-body h4 {
-  color: #f8f8f2;
-  border-bottom-color: #49483e;
+[data-theme="nord"] .markdown-body h1,
+[data-theme="nord"] .markdown-body h2,
+[data-theme="nord"] .markdown-body h3,
+[data-theme="nord"] .markdown-body h4 {
+  color: #eceff4;
+  border-bottom-color: #4c566a;
 }
 
-[data-theme="monokai"] .markdown-body code {
-  color: #f8f8f2;
-  background-color: #49483e;
-  border-color: #75715e;
+[data-theme="nord"] .markdown-body code {
+  color: #eceff4;
+  background-color: #3b4252;
+  border-color: #4c566a;
 }
 
-[data-theme="monokai"] .markdown-body pre {
-  background-color: #49483e;
-  border-color: #75715e;
+[data-theme="nord"] .markdown-body pre {
+  background-color: #3b4252;
+  border-color: #4c566a;
 }
 
-[data-theme="monokai"] .markdown-body pre code {
+[data-theme="nord"] .markdown-body pre code {
   background-color: transparent;
   border: none;
 }
 
-[data-theme="monokai"] .markdown-body blockquote {
-  color: #75715e;
-  border-left-color: #75715e;
+[data-theme="nord"] .markdown-body blockquote {
+  color: #81a1c1;
+  border-left-color: #4c566a;
 }
 
-[data-theme="monokai"] .markdown-body a {
-  color: #66d9ef;
+[data-theme="nord"] .markdown-body a {
+  color: #88c0d0;
 }
 
-[data-theme="monokai"] .markdown-body th,
-[data-theme="monokai"] .markdown-body td {
-  border-color: #49483e;
+[data-theme="nord"] .markdown-body th,
+[data-theme="nord"] .markdown-body td {
+  border-color: #4c566a;
 }
 
-[data-theme="monokai"] .markdown-body tr:nth-child(even) {
-  background-color: #49483e;
+[data-theme="nord"] .markdown-body tr:nth-child(even) {
+  background-color: #3b4252;
 }
 ```
 
@@ -74,22 +74,22 @@ import './themes/markdown-base.css';
 import './themes/github-light.css';
 import './themes/github-dark.css';
 import './themes/dracula.css';
-import './themes/monokai.css';  // ← add this line
+import './themes/nord.css';  // ← add this line
 
-export const AVAILABLE_THEMES = ['github-light', 'github-dark', 'dracula', 'monokai'];
+export const AVAILABLE_THEMES = ['github-light', 'github-dark', 'dracula', 'nord'];
 ```
 
 3. **Add the theme name** in `src-tauri/src/lib.rs`:
 
 ```rust
-const VALID_THEMES: &[&str] = &["github-light", "github-dark", "dracula", "monokai"];
+const VALID_THEMES: &[&str] = &["github-light", "github-dark", "dracula", "nord"];
 ```
 
 4. **Test locally**:
 
 ```bash
 pnpm tauri dev
-amdv --set-theme monokai plan.md
+amdv --set-theme nord plan.md
 ```
 
 ## Theme CSS Properties

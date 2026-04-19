@@ -5,12 +5,14 @@ use tauri::{Emitter, WindowEvent};
 
 static DECISION_SENDER: Mutex<Option<Sender<(bool, String)>>> = Mutex::new(None);
 
+/// Sends the user's interactive review decision to the waiting background worker.
 pub(crate) fn submit_decision(accepted: bool, note: String) -> Result<(), String> {
     let sender = DECISION_SENDER.lock().unwrap();
     let tx = sender.as_ref().ok_or("Interactive mode not initialized")?;
     tx.send((accepted, note)).map_err(|error| error.to_string())
 }
 
+/// Prepares the shared decision channel and exits after the first decision is received.
 pub(crate) fn initialize_interactive_mode() {
     let (tx, rx) = channel::<(bool, String)>();
     {
@@ -29,6 +31,7 @@ pub(crate) fn initialize_interactive_mode() {
     });
 }
 
+/// Intercepts window close requests so the frontend can confirm interactive exits.
 pub(crate) fn setup_interactive_close_handler(window: &tauri::WebviewWindow) {
     let window_clone = window.clone();
     window.on_window_event(move |event| {

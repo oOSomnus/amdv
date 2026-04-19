@@ -67,6 +67,7 @@ fn build_app(options: CliOptions) -> tauri::Builder<tauri::Wry> {
         })
 }
 
+/// Starts the Tauri application with the requested CLI options applied.
 pub(crate) fn run_application(options: CliOptions) {
     if options.interactive {
         interactive::initialize_interactive_mode();

@@ -1,8 +1,8 @@
 [package]
 name = "amdv"
-version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
+version = "1.0.0"
+description = "amdv is a lightweight Tauri-based Markdown previewer built for agent workflows, letting an agent instantly open and live-refresh a rendered view of a generated .md file."
+authors = ["Yihang Zhu"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

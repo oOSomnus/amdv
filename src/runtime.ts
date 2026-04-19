@@ -6,6 +6,9 @@ export interface AppRuntimeContext {
   pollIntervalMs: number;
 }
 
+/**
+ * Reads runtime values injected into the window and converts them into app context.
+ */
 export function getRuntimeContext(currentWindow: Window = window): AppRuntimeContext {
   return {
     filePath: currentWindow.__MD_FILE__,

@@ -10,15 +10,24 @@ export interface AppTestHarness {
   emitCloseRequest(): Promise<void>;
 }
 
+/**
+ * Waits for queued microtasks and timers used by the current test tick to settle.
+ */
 export function flushPromises() {
   return new Promise((resolve) => setTimeout(resolve, 0));
 }
 
+/**
+ * Creates and returns the content container used by component and integration tests.
+ */
 export function createContentElement() {
   document.body.innerHTML = '<div id="content" class="markdown-body">Loading...</div>';
   return document.getElementById('content') as HTMLElement;
 }
 
+/**
+ * Builds a reusable test harness with mocked app dependencies and close-request control.
+ */
 export function createAppTestHarness(
   overrides: Partial<AppDependencies> = {},
 ): AppTestHarness {

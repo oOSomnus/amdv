@@ -42,12 +42,14 @@ fn ensure_config_dir() -> Result<(), String> {
     Ok(())
 }
 
+/// Returns the default theme identifier defined by the shared theme metadata.
 pub(crate) fn default_theme_id() -> String {
     load_theme_catalog()
         .map(|catalog| catalog.default_theme)
         .unwrap_or_else(|_| FALLBACK_THEME_ID.to_string())
 }
 
+/// Builds the user-facing text that lists every available theme and its label.
 pub(crate) fn available_themes_text() -> Result<String, String> {
     let catalog = load_theme_catalog()?;
     let mut lines = vec!["Available themes:".to_string()];
@@ -60,6 +62,7 @@ pub(crate) fn available_themes_text() -> Result<String, String> {
     Ok(lines.join("\n"))
 }
 
+/// Checks whether the provided theme identifier exists in the bundled catalog.
 pub(crate) fn is_valid_theme(theme: &str) -> bool {
     match available_theme_ids() {
         Ok(theme_ids) => theme_ids.iter().any(|candidate| candidate == theme),
@@ -67,6 +70,7 @@ pub(crate) fn is_valid_theme(theme: &str) -> bool {
     }
 }
 
+/// Extracts a valid theme identifier from persisted config JSON content.
 pub(crate) fn theme_from_config_content(content: &str) -> Option<String> {
     let json: serde_json::Value = serde_json::from_str(content).ok()?;
     let theme = json.get("theme")?.as_str()?;
@@ -77,6 +81,7 @@ pub(crate) fn theme_from_config_content(content: &str) -> Option<String> {
     }
 }
 
+/// Loads the saved theme, falling back to the default when no valid config exists.
 pub(crate) fn get_theme() -> Result<String, String> {
     let default_theme = default_theme_id();
     let Some(config_path) = get_config_path() else {
@@ -91,6 +96,7 @@ pub(crate) fn get_theme() -> Result<String, String> {
     Ok(theme_from_config_content(&content).unwrap_or(default_theme))
 }
 
+/// Validates and persists the selected theme in the user's config file.
 pub(crate) fn set_theme(theme: String) -> Result<bool, String> {
     if !is_valid_theme(&theme) {
         let valid_themes = available_theme_ids()?.join(", ");

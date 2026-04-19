@@ -23,6 +23,7 @@ pub(crate) enum ParsedCommand {
     Run(CliOptions),
 }
 
+/// Parses command-line arguments into the action the application should perform.
 pub(crate) fn parse_cli(args: &[String]) -> Result<ParsedCommand, String> {
     let mut interactive = false;
     let mut file_path = None;

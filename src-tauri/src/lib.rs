@@ -16,6 +16,7 @@ fn print_and_exit_error(message: &str) -> ! {
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
+/// Dispatches CLI commands and launches the application when a viewer session is requested.
 pub fn run() {
     let args: Vec<String> = std::env::args().collect();
 

@@ -22,6 +22,9 @@ export interface AppController {
   loadMarkdown(): Promise<void>;
 }
 
+/**
+ * Creates the application controller responsible for theming, markdown loading, and interactive mode.
+ */
 export function createApp({
   contentEl,
   dependencies,

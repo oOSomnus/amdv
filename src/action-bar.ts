@@ -17,6 +17,9 @@ export interface ActionBarController {
   getNoteValue(): string;
 }
 
+/**
+ * Creates the interactive action bar used to accept or reject the current document.
+ */
 export function createActionBar({
   contentEl,
   onAccept,
